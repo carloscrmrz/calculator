@@ -1,34 +1,105 @@
 const NUMBERS = document.querySelectorAll('.numbers');
 const SCREEN = document.querySelector('.calc-screen');
 const OPERATIONS = document.querySelectorAll('.operations');
-//const = document.querySelector();
+const EQUAL = document.querySelector('.equal');
 //const = document.querySelector();
 //const = document.querySelector();
 //const = document.querySelector();
 //const = document.querySelector();
 //const = document.querySelector();
 
-let storedNumbers;
+let firstOperand = '';
+let secondOperand = '';
+let memoryOperation = null;
+let resetScreen = false;
 
 NUMBERS.forEach(btn => {
-	btn.addEventListener('click', () => {
-		//parseInt(btn.dataset.val)
-		changeScreenText(btn.dataset.val);
-		console.log(btn.dataset.val);
-
-	});
+	btn.addEventListener('click', showOnScreen);
 });
 
 
 OPERATIONS.forEach(btn => {
-	btn.addEventListener('click', () => {
-		//parseInt(btn.dataset.val)
-		console.log(btn.dataset.val);
-
-	});
+	btn.addEventListener('click', operationSelect);
 });
 
-function changeScreenText(evt) {
-	SCREEN.innerText += evt;
+EQUAL.addEventListener('click', eval);
+
+
+
+function showOnScreen(e) {
+	if ( SCREEN.innerText === '0' || resetScreen ) clearScreen()
+
+	SCREEN.innerText += e.target.dataset.val; 
 }
+
+function clearScreen() {
+	SCREEN.innerText = ''
+	resetScreen = false;
+}
+
+function operationSelect(e) {
+	if (memoryOperation !== null) eval()
+	memoryOperation = e.target.dataset.val;
+	firstOperand = SCREEN.innerText;
+	SCREEN.innerText = '';
+	
+}
+
+function eval() {
+	if ( memoryOperation === null ||  resetScreen ) return
+	if ( memoryOperation == '/' && SCREEN.innerText === '0' ) {
+		SCREEN.innerText = 'SYNTAX ERROR';
+		memoryOperation = null;
+		resetScreen = true;
+		return
+	}
+
+
+	secondOperand = SCREEN.innerText;
+	SCREEN.innerText = operate(firstOperand, secondOperand, memoryOperation);
+	
+	firstOperand = '';
+	secondOperand = '';
+
+	memoryOperation = null;
+
+}
+
+
+
+function operate(a,b,operator) {
+	a = Number(a);
+	b = Number(b);
+
+	switch (operator) {
+		case '+':
+			return add(a,b)
+		case '-':
+			return substract(a,b)
+		case '*': 
+			return multiply(a,b)
+		case '/':
+			if (b === 0) return null
+			return divide(a,b)
+		default:
+			return
+	}
+}
+
+function add(a,b) {
+	return a + b
+}
+
+function substract(a,b) {
+	return a - b
+}
+
+function multiply(a,b) {
+	return a*b
+}
+
+function divide(a,b) {
+	return a/b
+}
+
 
