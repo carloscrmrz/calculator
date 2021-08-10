@@ -2,7 +2,7 @@ const NUMBERS = document.querySelectorAll('.numbers');
 const SCREEN = document.querySelector('.calc-screen');
 const OPERATIONS = document.querySelectorAll('.operations');
 const EQUAL = document.querySelector('.equal');
-//const = document.querySelector();
+const CLEAR = document.querySelector('.clear');
 //const = document.querySelector();
 //const = document.querySelector();
 //const = document.querySelector();
@@ -26,7 +26,7 @@ OPERATIONS.forEach(btn => {
 
 EQUAL.addEventListener('click', eval);
 
-
+CLEAR.addEventListener('click', clearScreen);
 
 function showOnScreen(e) {
 	if ( SCREEN.innerText === '0' || resetScreen ) clearScreen()
