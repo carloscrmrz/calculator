@@ -45,14 +45,15 @@ body {
 }
 
 .calc-screen {
+	overflow: hidden;
 	position: relative;
-	top: 105px;
-	right: 15px;
+	top: 100px;
+	right: -5px;
 	color: #fff;
     	text-align: right;
 	text-decoration: none;
-    	width: 350px;
-	height: 141px;
+    	width: 325px;
+	height: 105px;
     	font-size: 90px;
     	font-weight: 100;
     	padding-top: 60px;
@@ -62,7 +63,7 @@ body {
 
 .calc-buttons {
 	position: relative;
-	top: 80px;
+	top: 116px;
 	left: 10px;
 	display: grid;
 	grid-gap: 12px;
