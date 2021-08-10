@@ -13,6 +13,8 @@ let secondOperand = '';
 let memoryOperation = null;
 let resetScreen = false;
 
+window.addEventListener('keydown', keyboardLog)
+
 NUMBERS.forEach(btn => {
 	btn.addEventListener('click', showOnScreen);
 });
@@ -43,6 +45,20 @@ function operationSelect(e) {
 	firstOperand = SCREEN.innerText;
 	SCREEN.innerText = '';
 	
+}
+
+function keyboardLog(e) {
+	const num = document.querySelector(`.numbers[data-key="${e.keyCode}"]`);
+	const numpad = document.querySelector(`.numbers[data-num="${e.keyCode}"]`);
+
+	if ( num === null && numpad === null ) return
+	if ( SCREEN.innerText === '0' || resetScreen ) clearScreen()
+	
+	if ( num !== null ) {
+		SCREEN.innerText += num.dataset.val;
+	} else {
+		SCREEN.innerText += numpad.dataset.val;
+	}
 }
 
 function eval() {
